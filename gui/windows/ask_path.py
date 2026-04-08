@@ -1,6 +1,5 @@
 import customtkinter as ctk
 from tkinter import filedialog
-import os
 
 
 class TopWindow(ctk.CTkToplevel):
