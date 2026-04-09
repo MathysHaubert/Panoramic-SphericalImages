@@ -3,6 +3,7 @@ import os
 import tkinter
 from PIL import Image
 
+from gui.widgets.sphere import PanoramaWindow
 from gui.windows.ask_path import TopWindow
 
 
@@ -40,7 +41,8 @@ class App(ctk.CTk):
         self.dropdown.pack(pady=(20, 10))
 
         self.action_button = ctk.CTkButton(self.control_frame, text="Lancer le traitement",
-                                           fg_color="#27856A", hover_color="#2E9D7E")
+                                           fg_color="#27856A", hover_color="#2E9D7E",
+                                           command=self.test_panorama)
         self.action_button.pack(pady=10)
 
     def load_files(self, directory):
@@ -81,6 +83,20 @@ class App(ctk.CTk):
         scaling = get_scaling_ratio()
         ctk.set_window_scaling(scaling)
         ctk.set_widget_scaling(scaling)
+
+    def on_processing_finished(self, final_image_path):
+        # Ouvre la fenêtre de visualisation
+        view_window = PanoramaWindow(final_image_path)
+        view_window.focus()
+
+    def test_panorama(self):
+        path_to_test = r"/home/mathys/PycharmProjects/Panoramic-SphericalImages/images/Example/FinalResult.jpg"
+
+        if os.path.exists(path_to_test):
+            print("Test du panorama lancé...")
+            self.on_processing_finished(path_to_test)
+        else:
+            print(f"Erreur : Le fichier est introuvable à l'adresse {path_to_test}")
 
 
 def get_scaling_ratio():

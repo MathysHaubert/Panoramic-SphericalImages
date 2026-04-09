@@ -1,3 +1,5 @@
+import os
+os.environ['PYOPENGL_PLATFORM'] = 'x11'
 from gui.app import App
 
 def start():
